@@ -1,3 +1,5 @@
+import {postObjectAsJson} from "./modulejson.js";
+
 console.log("jeg er i formkommune")
 
 document.addEventListener('DOMContentLoaded', createFormEventListener);
@@ -16,7 +18,7 @@ async function handleFormSubmit(event) {
     console.log(form);
     console.log(url);
     try {
-        const formData = new FormData(form);
+        const formData = new FormData(form); //formData indeholder alle indtastede data
         console.log(formData);
         const responseData = await postFormDataAsJson(url, formData);
     } catch (error) {
@@ -26,22 +28,14 @@ async function handleFormSubmit(event) {
 }
 
 async function postFormDataAsJson(url, formData) {
+    console.log("vi er i postformdata")
+    console.log(url)
+    console.log(formData)
     const plainFormData = Object.fromEntries(formData.entries());
-    console.log(plainFormData)
-}
-
-async function postObjectAsJson(url, object, httpVerbum) {
-    const objectAsJsonString = JSON.stringify(object)
-    console.log(objectAsJsonString)
-    const fetchOptions = {
-        method: httpVerbum,
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: objectAsJsonString
-    }
-    const response = await fetch(url, fetchOptions)
-    return response
+    plainFormData.region = {}
+    plainFormData.region.kode = plainFormData.regionKode;
+    const resp = await postObjectAsJson(url, plainFormData, "POST")
+    return resp
 }
 
 
