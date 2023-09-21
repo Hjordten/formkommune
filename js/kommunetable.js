@@ -11,9 +11,8 @@ function fetchAnyUrl(url) {
 
 function createTable(kommune) {
     let cellCount = 0
-    let rowCount = tblKommuner.rows.length
 
-    let row = tblKommuner.insertRow(rowCount)
+    let row = tblKommuner.insertRow()
 
     let cell = row.insertCell(cellCount++)
     cell.innerHTML = kommune.kode
@@ -25,7 +24,7 @@ function createTable(kommune) {
     cell.innerHTML = kommune.href
 }
 
-let kommuner = []
+let kommuner
 async function fetchKommuner(){
     kommuner = await fetchAnyUrl(urlKommune)
     kommuner.forEach(createTable)
