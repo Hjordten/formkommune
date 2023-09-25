@@ -32,11 +32,11 @@ function createTable(kommune) {
     cell.appendChild(img)
 
 
-    //Add region dropdown
     cell = row.insertCell(cellCount++)
-    const dropdown = document.createElement('select');
-    cell.append(dropdown)
+    cell.innerHTML = kommune.region.kode
 
+    cell = row.insertCell(cellCount++)
+    cell.innerHTML = kommune.region.navn
 
     const btnDelete = document.createElement("input");
     btnDelete.type = "button";
@@ -88,6 +88,7 @@ async function fetchKommuner() {
     kommuner = await fetchAnyUrl(urlKommuner)
     kommuner = sortKommuner(kommuner)
     kommuner.forEach(createTable)
+
 
 }
 
