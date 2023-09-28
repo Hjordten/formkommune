@@ -25,7 +25,6 @@ async function restDelete(url) {
 }
 
 
-
 function fetchAnyUrl(url) {
     return fetch(url).then(response => response.json())
 }
